@@ -1,0 +1,49 @@
+<form class="example-container" [formGroup]="form" (submit)="operate()" #frmSign="ngForm">
+
+  <div [hidden]="true">
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="ID" required formControlName="idSign">
+      </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <mat-select placeholder="Select Patient" formControlName="patient">
+        <mat-option *ngFor="let p of patients" [value]="p">
+            {{ p.firstName }} {{ p.lastName }}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date">
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+      <input matInput placeholder="Temperature" minlength="3" required formControlName="temperature">
+      <small *ngIf="f['temperature'].errors?.['required'] && f['temperature'].touched" class="invalid">Is required</small>
+      <small *ngIf="f['temperature'].errors?.['minlength'] && f['temperature'].touched" class="invalid">Minlength is 3</small>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+      <input matInput placeholder="Pulse" maxlength="8" required formControlName="pulse">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+      <input matInput placeholder="RespiratoryRate" formControlName="respiratoryRate">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="frmSign.invalid">
+      <mat-icon>done</mat-icon>
+      <span>Done</span>
+  </button>
+
+  <button mat-raised-button color="accent" type="button" routerLink="/pages/sign">
+      <mat-icon>cancel</mat-icon>
+      <span>Cancel</span>
+  </button>
+
+</form>
